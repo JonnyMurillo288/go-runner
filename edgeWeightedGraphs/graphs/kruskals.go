@@ -4,11 +4,9 @@ import (
 	utils "github.com/Jonnymurillo288/GoUtils"
 )
 
-type PQ []*Edge
-
 // utils.Graph is a separate graph we can use to find cycles
-func createUtilsGraph(m []*Edge]) *utils.Graph {
-	var g &utils.Graph{
+func createUtilsGraph(m []*Edge) *utils.Graph {
+	var g = &utils.Graph{
 		Edges: make(map[int][]int),
 	}
 	for _,e := range m {
@@ -20,7 +18,7 @@ func createUtilsGraph(m []*Edge]) *utils.Graph {
 }
 
 // add the edge to the priority queue and sort by weight
-func (pq *PQ) add(arr []*Edge, a *Edge) []*Edge {
+func add(arr []*Edge, a *Edge) []*Edge {
 	var weightMap = make(map[float64]*Edge)
 	var weights []float64
 	var res []*Edge // results ordered list of Edges sorted by weight
@@ -38,7 +36,7 @@ func (pq *PQ) add(arr []*Edge, a *Edge) []*Edge {
 	return res
 }
 
-func (pq *PQ) isEmpty() bool {
+func isEmpty(pq []*Edge) bool {
 	var len int
 	for _,_ = range pq {
 		len++
@@ -49,7 +47,7 @@ func (pq *PQ) isEmpty() bool {
 	return false
 }
 
-func (g utils.Graph) connected(v int, w int) bool {
+func (g *utils.Graph) connected(v int, w int) bool {
 	// add to graph then check union
 	g.AddEdge(v,w)
 	return g.IsCyclic()
@@ -60,21 +58,21 @@ func (g utils.Graph) connected(v int, w int) bool {
 // 3. Use union find to see if we will create a cycle
 func (g *EdgeWeightGraph) Kruskal() []*Edge {
 	var mst []*Edge
-	var pq PQ
-	var priorityQueue []*Edge
-	for _,ed := range g.Wdges {
-		priorityQueue = pq.add(priorityQueue, ed)
+	var pq []*Edge
+	for _,ed := range g.Edges {
+		e := &ed
+		pq = add(pq, e)
 	}
 	uf := createUtilsGraph(mst)
-	for !pq.isEmpty() && len(mst) < uf.V()-1 {
-		e := priorityQueue[0]
-		priorityQueue = priorityQueue[1:]
+	for !isEmpty(pq) && len(mst) < uf.V()-1 {
+		e := pq[0]
+		pq = pq[1:]
 		v := e.either()
 		w := e.other(v)
 		gr := uf
-		gr.union(v,w)
+		gr.Union(v,w)
 		if !gr.IsCyclic() {
-			uf.union(v,w)
+			uf.Union(v,w)
 			mst = append(mst,e)
 		}
 	}
