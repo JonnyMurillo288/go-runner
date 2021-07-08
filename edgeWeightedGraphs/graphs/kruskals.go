@@ -47,11 +47,6 @@ func isEmpty(pq []*Edge) bool {
 	return false
 }
 
-func (g *utils.Graph) connected(v int, w int) bool {
-	// add to graph then check union
-	g.AddEdge(v,w)
-	return g.IsCyclic()
-}
 
 // 1. Sort edges by weight
 // 2. Add the edge to MST UNLESS it creates a cycle
