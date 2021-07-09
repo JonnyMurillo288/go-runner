@@ -38,7 +38,7 @@ func add(arr []*Edge, a *Edge) []*Edge {
 
 func isEmpty(pq []*Edge) bool {
 	var len int
-	for _,_ = range pq {
+	for i := 0; i < len(pq); i++ {
 		len++
 	}
 	if len == 0 {

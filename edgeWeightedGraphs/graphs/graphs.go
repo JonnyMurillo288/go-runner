@@ -1,19 +1,19 @@
 package graphs
 
 type Edge struct {
-	v,w int
-	weight float64
+	V,W int
+	Weight float64
 }
 
 func (e *Edge) either() int {
-	return e.v
+	return e.V
 }
 
 func (e *Edge) other(v int) int {
-	if v == e.v{
-		return e.w
+	if v == e.V{
+		return e.W
 	} else {
-		return e.v
+		return e.V
 	}
 }
 
@@ -21,9 +21,9 @@ func (e *Edge) other(v int) int {
 // 1: this edge weight is greater
 // 0: both edge weights are the same
 func (this *Edge) compareTo(that *Edge) int {
-	if this.weight < that.weight {
+	if this.Weight < that.Weight {
 		return -1
-	} else if this.weight > that.weight {
+	} else if this.Weight > that.Weight {
 		return 1
 	} else {
 		return 0
@@ -37,7 +37,7 @@ type EdgeWeightGraph struct {
 	Adj map[int][]Edge
 }
 
-func (e *EdgeWeightGraph) addEdge(ed Edge) {
+func (e *EdgeWeightGraph) AddEdge(ed Edge) {
 	var v,w int
 	v = ed.either()
 	w = ed.other(v)
@@ -57,17 +57,14 @@ func (e *EdgeWeightGraph) E() int {
 	return len(e.Edges)
 }
 
-func (e *EdgeWeightGraph) edges() []Edge {
-	var edges []Edge 
-	for _,edge := range e.Adj {
-		for _,ed := range edge {
-			if !inArr(edges,ed) {
-				edges = append(edges,ed)
-			}
-		}
+func NewGraph() *EdgeWeightGraph {
+	return &EdgeWeightGraph{
+		Edges: make([]Edge,0),
+		Adj: make(map[int][]Edge),
 	}
-	return edges
 }
+
+
 
 
 // ================================================================= //
@@ -80,12 +77,8 @@ type MST struct {
 	Weights []float64
 }
 
-func (m *MST) add(e *Edge) {
+func (m *MST) Add(e *Edge) {
 	m.Edges = append(m.Edges,e)
-}
-
-func (m *MST) edges() []*Edge {
-	return m.Edges
 }
 
 func (m *MST) weights() []float64 {
