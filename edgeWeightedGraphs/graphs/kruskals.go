@@ -25,8 +25,8 @@ func add(arr []*Edge, a *Edge) []*Edge {
 	arr = append(arr,a) // add edge to the arr
 
 	for _,f := range arr{ // loop through the arr
-		weights = append(weights,f.weight) // add each weight to list of weights
-		weightMap[f.weight] = f // weightMap[weight] = edge
+		weights = append(weights,f.Weight) // add each weight to list of weights
+		weightMap[f.Weight] = f // weightMap[weight] = edge
 	}
 	weights = utils.SortFloat(weights) // sort the weights from least to greatest
 	for _,w := range weights { 
@@ -37,14 +37,11 @@ func add(arr []*Edge, a *Edge) []*Edge {
 }
 
 func isEmpty(pq []*Edge) bool {
-	var len int
+	var length int
 	for i := 0; i < len(pq); i++ {
-		len++
+		length++
 	}
-	if len == 0 {
-		return true
-	}
-	return false
+	return length == 0 
 }
 
 

@@ -65,8 +65,6 @@ func NewGraph() *EdgeWeightGraph {
 }
 
 
-
-
 // ================================================================= //
 //
 // Work on this, create an MST from the algorithms and when to append them
@@ -84,7 +82,7 @@ func (m *MST) Add(e *Edge) {
 func (m *MST) weights() []float64 {
 	var w []float64
 	for _,i := range m.Edges {
-		w = append(w,i.weight)
+		w = append(w,i.Weight)
 	}
 	return w
 }
