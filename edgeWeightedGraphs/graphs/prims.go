@@ -13,7 +13,7 @@ func (g *EdgeWeightGraph) PrimsLazy() []*Edge {
 		e := &ed
 		pq = Add(pq, e)
 	}
-	for !isEmpty(pq) && len(mst) > g.V()-1 {
+	for !isEmpty(pq) && len(mst) > g.LV()-1 {
 		e := pq[0]
 		pq = pq[1:]
 		v := e.either()
@@ -39,7 +39,7 @@ func (g *EdgeWeightGraph) PrimsLazy() []*Edge {
 // 3.1 Ignore if x in MST
 // decrease priority of x if v–x becomes shortest edge connecting x to MST
 func (g *EdgeWeightGraph) PrimsEager() []*Edge {
-
+	return []*Edge{}
 }
 
 // 
