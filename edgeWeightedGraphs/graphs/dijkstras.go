@@ -1,6 +1,7 @@
 package graphs
 
 import (
+	"fmt"
 	"math"
 
 	utils "github.com/Jonnymurillo288/GoUtils"
@@ -28,6 +29,7 @@ func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 
 	d.PQ.Insert(s,0.0) // relax vertices in order of distance from s
 	for !d.PQ.IsEmpty() {
+		fmt.Println(d.PQ)
 		v := d.PQ.DelMin()
 		for _,e := range g.Adj[v] {
 			d.Relax(&e)
