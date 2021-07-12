@@ -89,7 +89,26 @@ func (m *MST) weights() []float64 {
 
 
 
+// ================================================================= //
+// Edge Weighted Digraph
 
+
+type EdgeWeightDigraph struct {
+	V int
+	Adj map[int][]Edge
+}
+
+func NewWeightDigraph(v int) *EdgeWeightDigraph {
+	return &EdgeWeightDigraph{
+		V: v,
+		Adj: make(map[int][]Edge),
+	}
+}
+
+func (e *EdgeWeightDigraph) AddEdge(ed Edge) {
+	v := ed.From()
+	e.Adj[v] = append(e.Adj[v],ed)
+}
 
 
 // ================================================================= //
