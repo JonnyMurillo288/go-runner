@@ -30,6 +30,15 @@ func (this *Edge) compareTo(that *Edge) int {
 	}
 }
 
+// used to find directed edge
+func(e *Edge) To() int {
+	return e.W
+}
+
+func (e *Edge) From() int {
+	return e.V
+}
+
 // ================================================================= //
 
 type EdgeWeightGraph struct {
