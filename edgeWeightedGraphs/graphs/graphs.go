@@ -95,6 +95,14 @@ func (e *EdgeWeightDigraph) AddEdge(ed Edge) {
 	e.Adj[v] = append(e.Adj[v],ed)
 }
 
+func (e *EdgeWeightDigraph) LV() int {
+	var len int
+	for _,_ = range g.Adj {
+		len++
+	}
+	return len
+}
+
 
 // ================================================================= //
 //
