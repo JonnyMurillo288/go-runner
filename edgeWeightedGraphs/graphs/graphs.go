@@ -40,7 +40,7 @@ func (e *Edge) From() int {
 }
 
 // ================================================================= //
-
+// Edge Weighted Graph (not directed)
 type EdgeWeightGraph struct {
 	Edges []Edge
 	Adj map[int][]Edge
@@ -66,11 +66,33 @@ func (e *EdgeWeightGraph) E() int {
 	return len(e.Edges)
 }
 
-func NewGraph() *EdgeWeightGraph {
+
+func NewWeightGraph() *EdgeWeightGraph {
 	return &EdgeWeightGraph{
 		Edges: make([]Edge,0),
 		Adj: make(map[int][]Edge),
 	}
+}
+
+// ================================================================= //
+// Edge Weighted Digraph
+
+
+type EdgeWeightDigraph struct {
+	V int
+	Adj map[int][]Edge
+}
+
+func NewWeightDigraph(v int) *EdgeWeightDigraph {
+	return &EdgeWeightDigraph{
+		V: v,
+		Adj: make(map[int][]Edge),
+	}
+}
+
+func (e *EdgeWeightDigraph) AddEdge(ed Edge) {
+	v := ed.From()
+	e.Adj[v] = append(e.Adj[v],ed)
 }
 
 
@@ -98,26 +120,7 @@ func (m *MST) weights() []float64 {
 
 
 
-// ================================================================= //
-// Edge Weighted Digraph
 
-
-type EdgeWeightDigraph struct {
-	V int
-	Adj map[int][]Edge
-}
-
-func NewWeightDigraph(v int) *EdgeWeightDigraph {
-	return &EdgeWeightDigraph{
-		V: v,
-		Adj: make(map[int][]Edge),
-	}
-}
-
-func (e *EdgeWeightDigraph) AddEdge(ed Edge) {
-	v := ed.From()
-	e.Adj[v] = append(e.Adj[v],ed)
-}
 
 
 // ================================================================= //

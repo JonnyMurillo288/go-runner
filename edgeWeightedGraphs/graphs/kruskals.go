@@ -18,7 +18,7 @@ func createUtilsGraph(m []*Edge) *utils.Graph {
 }
 
 // add the edge to the priority queue and sort by weight
-func add(arr []*Edge, a *Edge) []*Edge {
+func Add(arr []*Edge, a *Edge) []*Edge {
 	var weightMap = make(map[float64]*Edge)
 	var weights []float64
 	var res []*Edge // results ordered list of Edges sorted by weight
@@ -53,7 +53,7 @@ func (g *EdgeWeightGraph) Kruskal() []*Edge {
 	var pq []*Edge
 	for _,ed := range g.Edges {
 		e := &ed
-		pq = add(pq, e)
+		pq = Add(pq, e)
 	}
 	uf := createUtilsGraph(mst)
 	for !isEmpty(pq) && len(mst) < uf.V()-1 {
