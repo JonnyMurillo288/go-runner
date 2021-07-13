@@ -32,6 +32,7 @@ func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 	for !d.PQ.IsEmpty() {
 		v := d.PQ.DelMin() // first pass deletes the source
 		fmt.Println("Looping through pq with min value of:",v)
+		fmt.Printf("\nAdj[%v] = ",g.Adj[v])
 
 		// second pass will delete the min from source to next vertice
 		// loop through all vertices that are connected to the min
