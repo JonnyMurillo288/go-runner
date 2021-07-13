@@ -22,7 +22,7 @@ func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 		PQ: utils.NewIndexMinPQ(g.LV()+1),
 	}
 	for v := 0; v < g.LV(); v++ {
-		d.DistTo[v] = math.Inf(-1) // distance to v is infinity
+		d.DistTo[v] = math.Inf(1) // distance to v is infinity
 	}
 	d.DistTo[s] = 0.0
 
