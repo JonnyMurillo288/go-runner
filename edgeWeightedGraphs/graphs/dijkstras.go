@@ -1,6 +1,7 @@
 package graphs
 
 import (
+	"fmt"
 	"log"
 	"math"
 
@@ -29,7 +30,11 @@ func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 
 	d.PQ.Insert(s,0.0) // relax vertices in order of distance from s
 	for !d.PQ.IsEmpty() {
-		v := d.PQ.DelMin()
+		v := d.PQ.DelMin() // first pass deletes the source
+		fmt.Println("Looping through pq with min value of:",v)
+
+		// second pass will delete the min from source to next vertice
+		// loop through all vertices that are connected to the min
 		for _,e := range g.Adj[v] {
 			d.Relax(&e)
 		}
