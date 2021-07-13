@@ -17,9 +17,9 @@ type Dijkstras struct {
 // 2. add the vertex to the tree and relax all edges pointing from that vertex
 func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 	d := &Dijkstras{
-		EdgeTo: make([]*Edge,g.LV()+1),
-		DistTo: make([]float64,g.LV()+1),
-		PQ: utils.NewIndexMinPQ(g.LV()+1),
+		EdgeTo: make([]*Edge,g.LV()),
+		DistTo: make([]float64,g.LV()),
+		PQ: utils.NewIndexMinPQ(),
 	}
 	for v := 0; v < g.LV(); v++ {
 		d.DistTo[v] = math.Inf(1) // distance to v is infinity
