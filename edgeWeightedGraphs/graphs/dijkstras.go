@@ -1,6 +1,7 @@
 package graphs
 
 import (
+	"log"
 	"math"
 
 	utils "github.com/Jonnymurillo288/GoUtils"
@@ -29,9 +30,6 @@ func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 	d.PQ.Insert(s,0.0) // relax vertices in order of distance from s
 	for !d.PQ.IsEmpty() {
 		v := d.PQ.DelMin()
-		if v == -1 {
-			return (*d)
-		}
 		for _,e := range g.Adj[v] {
 			d.Relax(&e)
 		}
@@ -46,6 +44,7 @@ func (d *Dijkstras) Relax(e *Edge) {
 		d.DistTo[w] = d.DistTo[v] + e.Weight
 		d.EdgeTo[w] = e
 		if d.PQ.Contains(w) {
+			log.Print("PQ contains %v\n",w)
 			// if w in the Priority queue and distTo[w] less than current distTo[w]
 			// decrese the key
 			d.PQ.DecreaseKey(w, d.DistTo[w])
