@@ -45,6 +45,9 @@ func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 func (d *Dijkstras) Relax(e *Edge) {
 	v := e.From()
 	w := e.To() 
+	log.Printf("\n\nRelaxing From %v - %v",v,w)
+	log.Printf("\nCurrent distTo for %v:",d.DistTo[w])
+	log.Printf("Potential DistTo: %v",d.DistTo[v]+e.Weight)
 	if d.DistTo[w] > d.DistTo[v] + e.Weight {
 		d.DistTo[w] = d.DistTo[v] + e.Weight
 		d.EdgeTo[w] = e
