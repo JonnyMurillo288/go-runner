@@ -56,8 +56,8 @@ func (e *EdgeWeightGraph) AddEdge(ed Edge) {
 
 func (e *EdgeWeightGraph) LV() int {
 	var len int
-	for _,_ = range e.Adj {
-		len++
+	for i,_ := range e.Adj {
+		len = i
 	}
 	return len
 }
@@ -96,12 +96,13 @@ func (e *EdgeWeightDigraph) AddEdge(ed Edge) {
 }
 
 func (e *EdgeWeightDigraph) LV() int {
-	var len int
+	var len int 
 	for _,_ = range e.Adj {
 		len++
 	}
 	return len
 }
+
 
 
 // ================================================================= //

@@ -9,7 +9,7 @@ import (
 )
 
 type Dijkstras struct {
-	EdgeTo []*Edge
+	EdgeTo []Edge
 	DistTo []float64
 	PQ utils.IndexMinPQ
 }
@@ -19,7 +19,7 @@ type Dijkstras struct {
 // 2. add the vertex to the tree and relax all edges pointing from that vertex
 func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 	d := &Dijkstras{
-		EdgeTo: make([]*Edge,g.LV()+1),
+		EdgeTo: make([]Edge,g.LV()+1),
 		DistTo: make([]float64,g.LV()+1),
 		PQ: utils.NewIndexMinPQ(g.LV()+1),
 	}
@@ -36,23 +36,28 @@ func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 		// second pass will delete the min from source to next vertice
 		// loop through all vertices that are connected to the min
 		for _,e := range g.Adj[v] {
-			d.Relax(&e)
+			d.Relax(e)
 		}
 	}
 	return (*d)
 }
 
-func (d *Dijkstras) Relax(e *Edge) {
+
+// relax the edge is the distance from v to w is shorter than distance to w
+func (d *Dijkstras) Relax(e Edge) {
 	v := e.From()
 	w := e.To() 
 	log.Printf("\n\nRelaxing From %v - %v",v,w)
-	log.Printf("\nCurrent distTo for %v:",d.DistTo[w])
+	log.Println("EDGE:",e)
+	log.Printf("\nCurrent distTo for %v : %v",w,d.DistTo[w])
 	log.Printf("Potential DistTo: %v",d.DistTo[v]+e.Weight)
 	if d.DistTo[w] > d.DistTo[v] + e.Weight {
 		d.DistTo[w] = d.DistTo[v] + e.Weight
+		log.Printf("\nEdgeTo[%v] BEFORE CHANGING:%v\n=*=*=*=*=*=*=*=*=*=*=*=*\n",w,d.EdgeTo[w])
 		d.EdgeTo[w] = e
+		log.Printf("\nEdgeTo[%v] AFTER CHANGING:%v\n",w,d.EdgeTo[w])
 		if d.PQ.Contains(w) {
-			log.Print("PQ contains %v\n",w)
+			log.Printf("PQ contains %v\n",w)
 			// if w in the Priority queue and distTo[w] less than current distTo[w]
 			// decrese the key
 			d.PQ.DecreaseKey(w, d.DistTo[w])
@@ -60,5 +65,8 @@ func (d *Dijkstras) Relax(e *Edge) {
 			// otherwise insert the key into the PQ
 			d.PQ.Insert(w, d.DistTo[w])
 		}
+	}
+	for i := 0; i < len(d.EdgeTo); i++ {
+		fmt.Printf("%v --> %v : %v\n",i,d.EdgeTo[i],d.DistTo[i])
 	}
 }
