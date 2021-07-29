@@ -24,15 +24,15 @@ func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 		PQ: utils.NewIndexMinPQ(g.LV()+1),
 	}
 	for v := 0; v < g.LV(); v++ {
-		d.DistTo[v] = math.Inf(1) // distance to v is infinity
+		d.DistTo[v] = math.Inf(-1) // distance to v is infinity
 	}
 	d.DistTo[s] = 0.0
 
 	d.PQ.Insert(s,0.0) // relax vertices in order of distance from s
+	fmt.Println("aigoheow: ",g.Adj[0],g.Adj[249])
 	for !d.PQ.IsEmpty() {
 		v := d.PQ.DelMin() // first pass deletes the source
 		fmt.Println("Looping through pq with min value of:",v)
-		fmt.Printf("\nAdj[%v] = ",g.Adj[v])
 		// second pass will delete the min from source to next vertice
 		// loop through all vertices that are connected to the min
 		for _,e := range g.Adj[v] {
@@ -53,9 +53,7 @@ func (d *Dijkstras) Relax(e Edge) {
 	log.Printf("Potential DistTo: %v",d.DistTo[v]+e.Weight)
 	if d.DistTo[w] > d.DistTo[v] + e.Weight {
 		d.DistTo[w] = d.DistTo[v] + e.Weight
-		log.Printf("\nEdgeTo[%v] BEFORE CHANGING:%v\n=*=*=*=*=*=*=*=*=*=*=*=*\n",w,d.EdgeTo[w])
 		d.EdgeTo[w] = e
-		log.Printf("\nEdgeTo[%v] AFTER CHANGING:%v\n",w,d.EdgeTo[w])
 		if d.PQ.Contains(w) {
 			log.Printf("PQ contains %v\n",w)
 			// if w in the Priority queue and distTo[w] less than current distTo[w]
@@ -63,10 +61,8 @@ func (d *Dijkstras) Relax(e Edge) {
 			d.PQ.DecreaseKey(w, d.DistTo[w])
 		} else {
 			// otherwise insert the key into the PQ
+			fmt.Printf("\nInserting %v into PQ",w)
 			d.PQ.Insert(w, d.DistTo[w])
 		}
-	}
-	for i := 0; i < len(d.EdgeTo); i++ {
-		fmt.Printf("%v --> %v : %v\n",i,d.EdgeTo[i],d.DistTo[i])
 	}
 }

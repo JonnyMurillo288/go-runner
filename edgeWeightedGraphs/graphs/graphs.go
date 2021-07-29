@@ -52,6 +52,7 @@ func (e *EdgeWeightGraph) AddEdge(ed Edge) {
 	w = ed.other(v)
 	e.Adj[v] = append(e.Adj[v],ed)
 	e.Adj[w] = append(e.Adj[w],ed)
+	e.Edges = append(e.Edges,ed)
 }
 
 func (e *EdgeWeightGraph) LV() int {
