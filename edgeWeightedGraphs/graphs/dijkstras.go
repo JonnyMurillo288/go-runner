@@ -28,7 +28,7 @@ func NewDijkstras(g *EdgeWeightDigraph, s int) Dijkstras {
 	}
 	d.DistTo[s] = 0.0
 
-	d.PQ.Insert(s,0.0) // relax vertices in order of distance from s
+	d.PQ.Insert(s,nil,0.0) // relax vertices in order of distance from s
 	fmt.Println("aigoheow: ",g.Adj[0],g.Adj[249])
 	for !d.PQ.IsEmpty() {
 		v := d.PQ.DelMin() // first pass deletes the source
@@ -58,11 +58,11 @@ func (d *Dijkstras) Relax(e Edge) {
 			log.Printf("PQ contains %v\n",w)
 			// if w in the Priority queue and distTo[w] less than current distTo[w]
 			// decrese the key
-			d.PQ.DecreaseKey(w, d.DistTo[w])
+			d.PQ.DecreaseKey(w, nil, d.DistTo[w])
 		} else {
 			// otherwise insert the key into the PQ
 			fmt.Printf("\nInserting %v into PQ",w)
-			d.PQ.Insert(w, d.DistTo[w])
+			d.PQ.Insert(w, nil, d.DistTo[w])
 		}
 	}
 }
