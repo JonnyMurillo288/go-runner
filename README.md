@@ -10,3 +10,6 @@ None of the algorithms are special, and I don't recommend using as there are muc
 
 
 If you would like to view my work with graphs check out my basic [SixDegreesSpotify](https://github.com/JonnyMurillo288/SixDegreesSpotify) project that will connect two artists through fetured artists
+
+For my work with tries you can check out my [CommonSenseScienceBot](https://github.com/JonnyMurillo288/CommonSenseScienceBot) I am using to create posts for my subreddit.
+NOTE: THIS BOT IS STILL BEING WORKED ON AND IS NOT CLOSE TO BEING DONE YET
